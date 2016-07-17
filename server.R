@@ -1,6 +1,10 @@
 shinyServer(function(input, output) { 
   output$text10 <- renderText({ 
     paste("Your movie type is", input$radio4)
+  }) 
+  
+  output$text11 <- renderText({ 
+    paste("I would like my film distributed", input$radio5)
   })
   
   output$text1 <- renderText({ 
