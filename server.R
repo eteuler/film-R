@@ -8,7 +8,7 @@ shinyServer(function(input, output) {
   output$text11 <- renderText({ 
     paste("I would like my film distributed", input$radio5)
   })
-category = 1
+category = 5
 output$plot <- renderPlot({
  ggplot(data = cust) +
     geom_point(aes(x=x,y=y,text = profile,color=factor(x),label=profile), 
@@ -81,13 +81,12 @@ output$text2 <- renderText({
 }) 
 
 
-output$textOut <- downloadHandler(
-  filename = function() {'A_Marketing_Template v2.pdf'},
+output$pdflink <- downloadHandler(
+  filename = "Marketing_Template.pdf",
   content = function(file){
-    file.copy('A_Marketing_Template v2.pdf',file)
-  },
-  contentType = "application/pdf"
-    )
+    file.copy('A_Marketing_Template1.pdf',file, overwrite = FALSE)
+  })
+  
   
   output$text3 <- renderText({ 
     paste("Your cast is", input$select2)

@@ -1,27 +1,29 @@
 library(shinythemes)
 library(ggplot2)
+library(plotly)
 shinyUI(fluidPage(theme = shinytheme("cosmo"),
-  titlePanel("Online Film Consulting"),
-  sidebarLayout(
-    sidebarPanel(
-      helpText("Fill in the information about your film"), 
+ navbarPage("Online Film Consulting",
+    tabPanel("Film Information", 
+             sidebarPanel("Fill in the information about your film:",
+      helpText("")), 
       
+      mainPanel(align = "center",
       #make a set of radio buttons for budget selection 
       radioButtons("radio4", label = h3("1. Movie Type"),
-                   choices = list("Narrative", "Documentary")), 
+                  choices = list("Narrative", "Documentary")), 
       
       #make a set of radio buttons for budget selection 
       radioButtons("radio5", label = h3("2. Prefer Internationally or Domestically released?"),
-                   choices = list("Internationally", "Domestically")),
+                   choices = list("Internationally", "Domestically"), width = 800),
       
   #make a select box for genre
   checkboxGroupInput("select", label = h3("3. Select genre"), 
               choices = list("Documentary", "Comedy", "Drama", "Action/Adventure",
                              "Romance", "Thriller", "Biography", "Mystery","Horror",
-                             "Film-Noir", "Sci-Fi", "Fantasy", "History", "Musical", 
+                             "Film-Noir", "Sci-Fi", "Fantasy", "History", 
                              "Musical", "Reality-TV", "Sport", "War", "Talk-Show", 
                              "Western", "Animation", "Crime", "Family", "Game-Show", 
-                             "Music", "News")), 
+                            "Music", "News")), width = 800, 
             
 
     #make a set of radio buttons for budget selection 
@@ -65,13 +67,10 @@ shinyUI(fluidPage(theme = shinytheme("cosmo"),
   
   
   #make an action button
-  column(2,
-         br(),
-         br(), 
-         submitButton("Submit")),
-   width = 5 ),
-  
-  column(7,
+         submitButton("Submit")), width = 12),
+    
+    
+  tabPanel("Results",
     helpText(strong('Film Information:')),
     textOutput("text10"),
     textOutput("text11"),
@@ -79,7 +78,9 @@ shinyUI(fluidPage(theme = shinytheme("cosmo"),
     verbatimTextOutput("info"),
     textOutput("text2"),
     textOutput("downloadData"), 
-    downloadButton('textOut','Download Template'),
+    
+    tags$a("Download Template",
+                   href="A_Marketing_Template1.pdf"),
     textOutput("text3"),
     textOutput("text4"), 
     textOutput("text5"), 
@@ -88,6 +89,5 @@ shinyUI(fluidPage(theme = shinytheme("cosmo"),
     textOutput("text8"),
     textOutput("text9"),
     img(src="andromedapic.jpg", height = 600, width = 500)
-    )
+    ))))
 
-)))
