@@ -1,6 +1,7 @@
 library(shinythemes)
 library(ggplot2)
 library(plotly)
+
 shinyUI(fluidPage(theme = shinytheme("cosmo"),
  navbarPage("Online Film Consulting",
     tabPanel("Film Information", 
@@ -35,7 +36,7 @@ shinyUI(fluidPage(theme = shinytheme("cosmo"),
   #make select box for cast type
   selectInput("select2", label = h3("5. Cast Recognition"),
               choices = list("Early career- under 7 years as an artist or 1st project",
-                             "Mid-career - 7 to 25 years as an artist or 2nd projec", 
+                             "Mid-career - 7 to 25 years as an artist or 2nd project", 
                              "Life-long career- Over 25 years as an artist or large body of work"
                              )), 
   
@@ -49,21 +50,19 @@ shinyUI(fluidPage(theme = shinytheme("cosmo"),
                               "DVD/Home Video", "Semi-Theatrical", "Festivals", "Tours",
                               "One-offs", "Theatrical", "Other")),
   
-  #make select box for ditributors preferred marketing strategy
-  selectInput("select4", label = h3("8. Preferred Distributors Marketing Strategy"),
-              choices = list("Paid Media", "Earned Media", "Owned Media")), 
+
   
   #make select box for cast type
-  selectInput("select5", label = h3("9. Producer and Director Career Stage"),
+  selectInput("select5", label = h3("8. Producer and Director Career Stage"),
               choices = list("Early career- under 7 years as an artist or 1st project",
                              "Mid-career - 7 to 25 years as an artist or 2nd project",
                              "Life-long career- Over 25 years as an artist or large body of work")), 
   #make a set of radio buttons for budget selection 
-  radioButtons("radio3", label = h3("10. Story Concept"),
+  radioButtons("radio3", label = h3("9. Story Concept"),
                choices = list("Original", "Adapted")),           
   
   #make a text input box
-  textInput("text", label = h3("11. Breif summary of film"), value = "Enter text..."),
+  textInput("text", label = h3("10. Please enter key terms to describe your film"), value = "Enter text..."),
   
   
   #make an action button
@@ -74,7 +73,20 @@ shinyUI(fluidPage(theme = shinytheme("cosmo"),
     helpText(strong('Film Information:')),
     textOutput("text10"),
     textOutput("text11"),
-    plotOutput("plot", click = "plot_click"),
+    
+    # if(category == 1) {plotlyOutput <- myplot1},
+    # if(category == 2) {plotlyOutput <- myplot2},
+    # if(category == 3) {plotlyOutput <- myplot3},
+    # if(category == 4) {plotlyOutput <- myplot4},
+    # if(category == 5) {plotlyOutput <- myplot5},
+    # if(category == 6) {plotlyOutput <- myplot6},
+    # if(category == 7) {plotlyOutput <- myplot7},
+    # if(category == 8) {plotlyOutput <- myplot8},
+    # if(category == 9) {plotlyOutput <- myplot9},
+    # if(category == 10) {plotlyOutput <- myplot10},
+    
+    
+    plotlyOutput("trendPlot"),
     verbatimTextOutput("info"),
     textOutput("text2"),
     textOutput("downloadData"), 
@@ -84,10 +96,16 @@ shinyUI(fluidPage(theme = shinytheme("cosmo"),
     textOutput("text3"),
     textOutput("text4"), 
     textOutput("text5"), 
-    textOutput("text6"),
+
     textOutput("text7"), 
     textOutput("text8"),
     textOutput("text9"),
     img(src="andromedapic.jpg", height = 600, width = 500)
-    ))))
+    ),
+  navbarMenu("Customer Segments",
+  tabPanel("Segment 1"),
+  tabPanel("Segment 2"),
+  tabPanel("Segment 3"),
+  tabPanel("Segment 4"))
+           )))
 
