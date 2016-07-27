@@ -122,7 +122,7 @@ shinyServer(function(input, output) {
   #         panel.grid.minor=element_blank(),plot.background=element_blank()) 
   # myplot10 <- ggplotly(myplot10)  
   
-category = rep(0,4)
+category = rep(0,3)
 output$trendPlot <- renderPlotly({
   theplot <- ggplot(data = cust) +
     geom_point(aes(x=x,y=y, color=factor(x), #text = profile,label=profile,
@@ -130,11 +130,10 @@ output$trendPlot <- renderPlotly({
                    customtext = "test = ", "test2 = "),
                
                size =
-                 ifelse(category==rep(0,4), bubblesize,
-                 ifelse(category==rep(1,4), bubblesize1,
-                 ifelse(category==rep(2,4), bubblesize2,
-                 ifelse(category==rep(3,4), bubblesize3, 3 
-                                      )))))  +
+                 ifelse(category==rep(0,3), bubblesize,
+                 ifelse(category==rep(1,3), bubblesize1,
+                 ifelse(category==rep(2,3), bubblesize2, 3 
+                                      ))))  +
          geom_text(aes(x=x,y=y,label=profile),hjust=0, vjust=0) +
          theme(axis.line=element_blank(),axis.text.x=element_blank(),
          axis.text.y=element_blank(),axis.ticks=element_blank(),
@@ -187,25 +186,22 @@ output$text2 <- renderText({
   paste("You have chosen a budget of", input$radio)
 }) 
 
+output$link <- renderUI({
+  tags$a(href = "input$radio")
+})
 
-output$pdflink <- downloadHandler(
-  filename = "Marketing_Template.pdf",
-  content = function(file){
-    file.copy('A_Marketing_Template1.pdf',file, overwrite = FALSE)
-  })
+# output$pdflink <- downloadHandler(
+#    filename = "Marketing_Template.pdf",
+#    content = function(file){
+#      file.copy('A_Marketing_Template.pdf',file, overwrite = FALSE)
+#    }
+#   )
   
   
   output$text3 <- renderText({ 
     paste("Your cast is", input$select2)
   }) 
   
-  output$text4 <- renderText({ 
-    paste("Your film's rating is ", input$select3)
-  })
-  
-  output$text5 <- renderText({ 
-    paste("Your ideal distribution platforms are", input$radio2)
-  })
   
   
   output$text7 <- renderText({ 
