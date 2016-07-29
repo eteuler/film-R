@@ -12,4 +12,5 @@ bubblesize8 = c(24, 18, 30)
 bubblesize9 = c(29, 23, 30)
 x = c(5, 6, 7)
 y = c(5, 5, 5)
-cust = data.frame(profile, bubblesize, x, y) 
+cust = data.frame(profile, bubblesize, x, y)
+
