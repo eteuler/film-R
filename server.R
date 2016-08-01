@@ -1,8 +1,11 @@
 library(plotly)
 library(ggplot2)
-category <<- 1
-shinyServer(function(input, output)
+#category <<- 1
+shinyServer(function(input, output, session)
   { 
+  observeEvent(input$Results, {
+    updateNavbarPage(session = session, inputId = "tabs", selected = "Results")
+  })
   ##MOVIE TYPE
   # output$text10 <- renderText({ 
   #   paste("Your movie type is", input$radio4)
@@ -22,6 +25,7 @@ shinyServer(function(input, output)
     if ( "Adventure" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 20
     if ( "Documentary" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] + 30
     if ( "Foreign" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] + 30
+    if ( "Horror" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] - 10
     if (input$radio=="$3 million - $5 million") cust$bubblesize[2] = cust$bubblesize[2] + 5
     if (input$radio=="$1 million - $3 million") cust$bubblesize[2] = cust$bubblesize[2] + 10
     if (input$radio=="$250K - $1 million") cust$bubblesize[2] = cust$bubblesize[2] + 20
@@ -40,7 +44,7 @@ output$trendPlot <- renderPlotly({
     geom_point(aes(x=x,y=y, color=factor(x), #text = profile,label=profile,
                    hoverinfo = "text",
                    text = paste("Check out the Customer Segment tab to learn more")),
-               
+
                size = temp$bubblesize)  +
          geom_text(aes(x=x,y=y,label=profile),hjust=0, vjust=0) +
          theme(axis.line=element_blank(),axis.text.x=element_blank(),
@@ -60,10 +64,14 @@ output$trendPlot <- renderPlotly({
 
 
 output$link <- renderUI({
-  tags$a(href = "A_Marketing_Template v3.pdf")
+  tags$a(href = "Marketing_Template.pdf")
 }) 
 
 
+# observeEvent(input$results, {
+#   session$sendCustomMessage(type = 'testmessage',
+#                             message = 'Thank you for clicking')
+# })
   
   #CAST OUTPUT
   # output$text3 <- renderText({ 
