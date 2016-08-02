@@ -6,33 +6,63 @@ shinyServer(function(input, output, session)
   observeEvent(input$Results, {
     updateNavbarPage(session = session, inputId = "tabs", selected = "Results")
   })
-  ##MOVIE TYPE
-  # output$text10 <- renderText({ 
-  #   paste("Your movie type is", input$radio4)
-  # }) 
-  
-  #Domestic or international
-  # output$text11 <- renderText({ 
-  #   paste("I would like my film distributed", input$radio5)
-  # })
-  
-  data_final <- reactive({
-    if ( "Drama" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 20
-    if ( "Classic" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] + 20
-    if ( "Musical" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 20
-    if ( "Comedy" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 20
-    if ( "Action" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 20
-    if ( "Adventure" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 20
-    if ( "Documentary" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] + 30
-    if ( "Foreign" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] + 30
-    if ( "Horror" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] - 10
+
+  data_final <- reactive({ 
+    #Entertainer Bubble
+    if (input$radio4=="Narrative") cust$bubblesize[1] = cust$bubblesize[1] + 3
+    if ( "Romance" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 7
+    if ( "Family" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 5
+    if ( "Drama" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 5
+    if ( "Comedy" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 6
+    if ( "Foreign" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] - 2
+    if ( "Music" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 5
+    if ( "Horror" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 3
+    if ( "Action" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 2 
+    if ( "Adventure" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 2
+    if ( "Sci Fi" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] - 2
+    if ( "Western" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] - 2
+    if ( "War" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] - 1
+    if ( "Thriller" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 3
+    if ( "Documentary" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] - 2
+    if ( "Biography" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 1 
+    if ( "Sports" %in% input$select) cust$bubblesize[1] = cust$bubblesize[1] + 1
+    if (input$radio=="$5 million +") cust$bubblesize[1] = cust$bubblesize[1] + 5
+    #Artist Bubble
+    if (input$radio4=="Narrative") cust$bubblesize[1] = cust$bubblesize[1] + 3
+    if ( "Romance" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] + 6
+    if ( "Family" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] + 3 
+    if ( "Drama" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] + 5
+    if ( "Animation" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] + 2
+    if ( "Foreign" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] + 9
+    if ( "Music" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] + 7
+    if ( "Horror" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] - 2 
+    if ( "Action" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] - 2
+    if ( "Sci Fi" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] + 2 
+    if ( "Western" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] + 2 
+    if ( "War" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] - 1 
+    if ( "Documentary" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] + 5 
+    if ( "Biography" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] + 5 
+    if ( "Sports" %in% input$select) cust$bubblesize[2] = cust$bubblesize[2] - 2 
     if (input$radio=="$3 million - $5 million") cust$bubblesize[2] = cust$bubblesize[2] + 5
-    if (input$radio=="$1 million - $3 million") cust$bubblesize[2] = cust$bubblesize[2] + 10
-    if (input$radio=="$250K - $1 million") cust$bubblesize[2] = cust$bubblesize[2] + 20
-    if (input$radio=="Under $250K") cust$bubblesize[2] = cust$bubblesize[2] + 30
-    if (input$radio=="$5 million +") cust$bubblesize[1] = cust$bubblesize[1] + 10
-    if (input$select2=="Mid-career - 7 to 25 years as an artist or 2nd project") cust$bubblesize[2] = cust$bubblesize[2] + 10
-    if (input$select2=="Life-long career- Over 25 years as an artist or large body of work") cust$bubblesize[2] = cust$bubblesize[2] + 20
+    if (input$radio=="$1 million - $3 million") cust$bubblesize[2] = cust$bubblesize[2] + 2
+    if (input$radio=="$250K - $1 million") cust$bubblesize[2] = cust$bubblesize[2] + 4 
+    if (input$radio=="Under $250K") cust$bubblesize[2] = cust$bubblesize[2] + 8 
+    if (input$select2=="Mid-career - 7 to 25 years as an artist or 2nd project") cust$bubblesize[2] = cust$bubblesize[2] + 2
+    if (input$select2=="Life-long career- Over 25 years as an artist or large body of work") cust$bubblesize[2] = cust$bubblesize[2] + 4
+    #Thinker Bubble
+    if (input$radio4=="Documentary") cust$bubblesize[1] = cust$bubblesize[1] + 4
+    if ( "Romance" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] - 2
+    if ( "Family" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] - 2
+    if ( "Comedy" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] - 1
+    if ( "Animation" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] - 2
+    if ( "Foreign" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] + 8
+    if ( "Music" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] - 1
+    if ( "Horror" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] - 1
+    if ( "Western" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] + 6
+    if ( "War" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] + 4
+    if ( "Documentary" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] + 10
+    if ( "Biography" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] + 10
+    if ( "Sports" %in% input$select) cust$bubblesize[3] = cust$bubblesize[3] + 8
     return(cust)
   }) 
   
@@ -55,40 +85,9 @@ output$trendPlot <- renderPlotly({
          panel.grid.minor=element_blank(),plot.background=element_blank())
     })
                                       
-
-
-#BUDGET OUTPUT
-# output$text2 <- renderText({ 
-#   paste("You have chosen a budget of", input$radio)
-# }) 
-
-
 output$link <- renderUI({
   tags$a(href = "Marketing_Template.pdf")
 }) 
-
-
-# observeEvent(input$results, {
-#   session$sendCustomMessage(type = 'testmessage',
-#                             message = 'Thank you for clicking')
-# })
-  
-  #CAST OUTPUT
-  # output$text3 <- renderText({ 
-  #   paste("Your cast is", input$select2)
-  # }) 
-  
-  
-  #CAREER STAGE OF DIRECTOR/PRODUCER
-  # output$text7 <- renderText({ 
-  #   paste("Your Director/Producer career stage is", input$select5)
-  # })
-  #STORY CONCEPT OUTPUT
-  # output$text8 <- renderText({ 
-  #   paste("Your story concept is", input$radio3)
-  # })
-  
- # output$text9 <- renderPrint({ input$text })
 }) 
 
 

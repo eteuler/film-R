@@ -14,18 +14,15 @@ shinyUI(fluidPage(theme = shinytheme("cosmo"),
       radioButtons("radio4", label = h3("1. Movie Type"),
                   choices = list("Narrative", "Documentary")), 
       
-      #make a set of radio buttons for release local
-      radioButtons("radio5", label = h3("2. Prefer Internationally or Domestically released?"),
-                   choices = list("Internationally", "Domestically"), width = 800),
-      
   #make a select box for genre
   checkboxGroupInput("select", label = h3("3. Select genre"), 
               choices = list("Documentary", "Comedy", "Drama", "Action", "Adventure",
                              "Romance", "Thriller", "Biography", "Mystery","Horror",
                              "Film-Noir", "Sci-Fi", "Fantasy", "History", 
-                             "Musical", "Sports", "War", "Foreign",
+                             "Music", "Sports", "War", "Foreign",
                              "Western", "Animation", "Crime", "Family" 
-                            )), width = 800, 
+                            ), inline = TRUE),
+  #width = 800, 
             
 
     #make a set of radio buttons for budget selection 
@@ -65,24 +62,11 @@ shinyUI(fluidPage(theme = shinytheme("cosmo"),
  
   tabPanel("Results",
     helpText(strong('Results')),
-    # textOutput("text10"),
-    # textOutput("text11"),
     plotlyOutput("trendPlot"),
     verbatimTextOutput("info"),
-    # textOutput("text2"),
-    # textOutput("downloadData"),
-    # 
      tags$a(strong("Download your marketing template here"),
             href = "Marketing_Template.pdf"),
            
-    
-    # textOutput("text3"),
-    # textOutput("text4"), 
-    # textOutput("text5"), 
-    # 
-    # textOutput("text7"), 
-    # textOutput("text8"),
-    # textOutput("text9"),
     helpText(strong('Distribution Information:')),
     img(src="andromedapic.jpg", height = 600, width = 1200)
     
